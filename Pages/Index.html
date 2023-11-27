@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <link rel="stylesheet" href="style.css"/>
+    <title>Statistics</title>
+</head>
+<body>
+<div id="app">
+    <header class="siteHeader">
+        <div class="container">
+            <p class="siteHeader__title">{{ service }}</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <section class="ongoingIssues">
+            <a class="issueBanner issueBanner--monitoring">
+                <p class="issueBanner__state">
+                    <button class="pushButton" @click="reset">Reset</button>
+                </p>
+                <h2>Server Connectivity Transactions</h2>
+                <p class="issueBanner__time">Last updated {{ datetime }}</p>
+            </a>
+        </section>
+        <section class="serviceGroup" v-if="!!statistics">
+            <ul class="serviceList serviceGroup__list">
+                <li class="serviceList__item">
+                    <p class="serviceList__status"><span class="ok" style="font-weight: bold">{{
+                            statistics.serve_time
+                        }}</span></p>
+                    <p class="serviceList__name">
+                        Server Start Time
+                    </p>
+                </li>
+                <li class="serviceList__item">
+                    <p class="serviceList__status"><span class="ok" style="font-weight: bold">{{
+                            this.secondToHumanReadable(statistics.uptime_second)
+                        }}</span></p>
+                    <p class="serviceList__name">
+                        Up Time
+                    </p>
+                </li>
+                <li class="serviceList__item">
+                    <p class="serviceList__status"><span class="ok" style="font-weight: bold">{{
+                            statistics.transaction.total
+                        }}</span></p>
+                    <p class="serviceList__name">
+                        Total Transaction
+                    </p>
+                </li>
+                <li class="serviceList__item">
+                    <p class="serviceList__status"><span class="ok" style="font-weight: bold">{{
+                            statistics.transaction.success
+                        }}</span></p>
+                    <p class="serviceList__name">
+                        Success Transaction
+                    </p>
+                </li>
+                <li class="serviceList__item">
+                    <p class="serviceList__status"><span class="nok" style="font-weight: bold">{{
+                            statistics.transaction.failed
+                        }}</span></p>
+                    <p class="serviceList__name">
+                        Failed Transaction
+                    </p>
+                </li>
+                <li class="serviceList__item">
+                    <p class="serviceList__status"><span class="ok" style="font-weight: bold">{{
+                            statistics.transaction.online
+                        }}</span></p>
+                    <p class="serviceList__name">
+                        Online Transaction
+                    </p>
+                </li>
+            </ul>
+        </section>
+    </div>
+
+    <footer class="siteFooter">
+        <div class="container">
+        </div>
+    </footer>
+</div>
+</body>
+<script src="script.js"></script>
+</html>
